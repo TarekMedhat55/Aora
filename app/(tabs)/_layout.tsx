@@ -1,45 +1,115 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+import { Tabs } from "expo-router";
+import { Text, Image } from "react-native";
+import icons from "@/constants/icons";
+const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarActiveTintColor: "#ffa001",
+        tabBarInactiveTintColor: "#CDCDE0",
+        tabBarStyle: {
+          backgroundColor: "#161622",
+          borderTopWidth: 1,
+          borderTopColor: "#232533",
+          height: 85,
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.home}
+              resizeMode="contain"
+              className="w-6 h-6"
+              style={{ tintColor: color }}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <Text
+              style={{ color }}
+              className={`text-sm mt-1 ${
+                focused ? "font-psemibold" : "font-pregular"
+              }`}
+            >
+              Home
+            </Text>
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="bookmark"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.bookmark}
+              resizeMode="contain"
+              className="w-6 h-6"
+              style={{ tintColor: color }}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <Text
+              style={{ color }}
+              className={`text-sm mt-1 ${
+                focused ? "font-psemibold" : "font-pregular"
+              }`}
+            >
+              Bookmark
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="create"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.plus}
+              resizeMode="contain"
+              className="w-6 h-6"
+              style={{ tintColor: color }}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <Text
+              style={{ color }}
+              className={`text-sm mt-1 ${
+                focused ? "font-psemibold" : "font-pregular"
+              }`}
+            >
+              Create
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.profile}
+              resizeMode="contain"
+              className="w-6 h-6"
+              style={{ tintColor: color }}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <Text
+              style={{ color }}
+              className={`text-sm mt-1 ${
+                focused ? "font-psemibold" : "font-pregular"
+              }`}
+            >
+              Profile
+            </Text>
+          ),
         }}
       />
     </Tabs>
   );
-}
+};
+
+export default TabsLayout;
